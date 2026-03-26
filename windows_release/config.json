@@ -1,0 +1,40 @@
+{
+  "telegram": {
+    "enabled": true,
+    "ports_tcp": "443,80,88,8080",
+    "ports_udp": "443,3478,3479,3480,3481,5222,5223,5224,8888,9898,9899,9900,10000-10100",
+    "autohostlist": true,
+    "debug": false,
+    "strategies": [
+      {
+        "name": "TLS Fake",
+        "enabled": true,
+        "lua_desync": "fake:blob=fake_default_tls:badsum:repeats=2",
+        "filter_l7": "tls",
+        "hostlist": "telegram.org,t.me,telegram.me,tg.dev"
+      },
+      {
+        "name": "Multisplit",
+        "enabled": true,
+        "lua_desync": "multisplit:pos=2,host+1:badsum",
+        "filter_l7": "tls,http",
+        "hostlist": "telegram.org,t.me,telegram.me"
+      },
+      {
+        "name": "UDP Length",
+        "enabled": true,
+        "lua_desync": "udplen:increment=2",
+        "filter_l7": "quic,discord,stun"
+      }
+    ]
+  },
+  "global": {
+    "debug": false,
+    "daemon": false,
+    "bind_fix4": true,
+    "bind_fix6": true,
+    "ipcache_hostname": true,
+    "wf_filter_lan": false,
+    "wf_filter_loopback": true
+  }
+}

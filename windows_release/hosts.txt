@@ -1,0 +1,7 @@
+telegram.org
+t.me
+telegram.me
+tg.dev
+telegram-cdn.org
+telesco.pe
+tgraph.io
